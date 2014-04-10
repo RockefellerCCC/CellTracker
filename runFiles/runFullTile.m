@@ -7,6 +7,7 @@ function runFullTile(direc,outfile,paramfile,step)
 %direc -- image directory
 %outfile -- matfile for output
 %step = step to begin at. See code. allows for skipping finding cells etc.
+%TEST COMMENT FOR GITHUB, TO BE DELETED
 
 if ~exist('step','var')
     step=1;

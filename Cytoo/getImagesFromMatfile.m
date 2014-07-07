@@ -22,7 +22,7 @@ end
 
 nimgs=min(length(inds)-first_img+1,maximgs);
 
-for ii=1:nimgs
+parfor ii=1:nimgs
     fi{ii}=pp.plate1.getColonyImages(inds(ii+first_img-1));
 end
 

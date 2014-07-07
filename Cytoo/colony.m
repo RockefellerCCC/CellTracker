@@ -148,7 +148,7 @@ classdef colony
             if isempty(imFiles)
                 error('Error: files with first keyword not found...');
             end
-            
+         
             tmp1=imread([direc filesep imFiles(1).name]);
             si=size(tmp1);
             

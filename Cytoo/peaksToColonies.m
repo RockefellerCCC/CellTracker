@@ -1,4 +1,8 @@
-function [colonies peaks]=peaksToColonies(matfile)
+function [colonies, peaks]=peaksToColonies(matfile,imsize)
+
+if ~exist('imsize','var')
+    imsize=[1024 1344];
+end
 
 pp=load(matfile,'peaks','acoords','imgfiles','dims');
 peaks=pp.peaks;
@@ -40,7 +44,7 @@ alldat=[alldat full(allinds)];
 %Make colony structure
 for ii=1:length(groups)
     cellstouse=allinds==ii;
-    colonies(ii)=colony(alldat(cellstouse,:),ac,dims,[],pp.imgfiles);
+    colonies(ii)=colony(alldat(cellstouse,:),ac,dims,imsize,pp.imgfiles);
 end
 
 %put data back into peaks

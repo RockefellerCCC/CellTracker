@@ -1,4 +1,4 @@
-function runFullTile(direc,outfile,paramfile,step)
+function runFullTile(direc,outfile,wellname,paramfile,step)
 %runFullTile(direc,outfile,maxims,step)
 %---------------------
 %For a set of tiled images, runs segmentCells (uses parfor for this), runs
@@ -8,23 +8,26 @@ function runFullTile(direc,outfile,paramfile,step)
 %outfile -- matfile for output
 %step = step to begin at. See code. allows for skipping finding cells etc.
 %TEST COMMENT FOR GITHUB, TO BE DELETED
+
 if ~exist('step','var')
     step=1;
 end
 
-if ~exist('paramfile','var') || isempty(paramfile)
-    paramfile='setUserParamSC20xIFEDS';
+if ~exist('paramfile','var')
+    paramfile='setUserParamScanZeeshan';
 end
 
-[dims, wavenames]=getDimsFromScanFile(direc);
-chans=wavenames2chans(wavenames);
+%[dims, wavenames]=getDimsFromScanFile(direc);
+dims=[20 20];
+chans={[wellname ')_w1'],[wellname ')_w2'],[wellname ')_w3'],[wellname ')_w4']};
+
+%chans=wavenames2chans(wavenames);
 ff=folderFilesFromKeyword(direc,chans{1});
 maxims=ff(end-1);
 
 nloop=12;
 imgsperprocessor=ceil(maxims/12);
 %generate background image for each channel
-
 if step < 2
     for ii=1:length(chans)
         [minI meanI]=mkBackgroundImage(direc,chans{ii},min(500,maxims));
@@ -45,6 +48,7 @@ if step < 3
     runTileLoop(direc,chans,imgsperprocessor,nloop,maxims,bIms,nIms,paramfile);
 end
 
+
 %performs a series of pairwise alignments,
 %each img is aligned img on top and to the left, pixel overlap
 %stored in accords, can also return fully aligned image, but not
@@ -59,16 +63,14 @@ if step < 5
 end
 %peaksToColonies generates the colony structure from peaks and accords
 %computes alpha volume and then finds all connected components.
-if step < 6
-    load([direc filesep outfile],'bIms','nIms');
-    [colonies, peaks]=peaksToColonies([direc filesep outfile]);
-    plate1=plate(colonies,dims,direc,chans,bIms,nIms);
-    save([direc filesep outfile],'plate1','peaks','-append'); 
-end
-
+% if step < 6
+%     load([direc filesep outfile],'bIms','nIms');
+%     [colonies, peaks]=peaksToColonies([direc filesep outfile],[2160 2160]);
+%     plate1=plate(colonies,dims,direc,chans,bIms,nIms);
+%     save([direc filesep outfile],'plate1','peaks','-append');  
+% end
 
 function chans=wavenames2chans(wavenames,nucname)
-
 
 if ~exist('nucname','var')
     nucname='DAPI';

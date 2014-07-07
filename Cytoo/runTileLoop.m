@@ -4,6 +4,7 @@ s=matlabpool('size');
 if s > 0
     matlabpool close;
 end
+
 matlabpool('local',12);
 parfor ii=1:nloop
     n1=(ii-1)*imgsperprocessor+1;

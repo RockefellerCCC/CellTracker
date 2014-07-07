@@ -11,6 +11,8 @@ switch colsize
         inds=pp.plate1.inds250;
     case 4
         inds=pp.plate1.indsSm;
+    case 5
+        inds=1:(length(pp.plate1.colonies));s
     otherwise
         inds=pp.plate1.inds1000;
         disp('WARNING: invalid colsize, must be 1-4, defaulting to 1');

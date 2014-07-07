@@ -41,7 +41,7 @@ for ii=posRange(1):posRange(2)
         
         [maskC statsN]=segmentCells(nuc,fimg);
         [~, statsN]=addCellAvr2Stats(maskC,fimg,statsN);
-        
+
         if ~isempty(statsN)
             outdat=outputData4AWTracker(statsN,nuc,nImages);
             peaks{ii}=outdat;

@@ -62,7 +62,7 @@ classdef plate
             %function to call the assemble colony method and get images of
             %colony number colnum. will use plate1.direc unless the direc
             %argument is specified.
-            
+
             if exist('direc','var')
                 usedir=direc;
             else
@@ -87,7 +87,7 @@ classdef plate
             
             
             
-            
+       
             if any(strcmp(properties(obj),'nIms')) && any(strcmp(properties(obj),'bIms'))
                 fI=obj.colonies(colnum).assembleColony(usedir,obj.chans,obj.bIms,obj.nIms);
             else
